@@ -4,10 +4,12 @@
  */
 import {PageFactory, PageRegister, PageController} from "@haztivity/core/index";
 import template from "./page.html!text";
+import {HzDialogResource} from "../../../../../src/HzDialogResource";
 export let page: PageRegister = PageFactory.createPage(
     {
         name: "6611",
         resources: [
+            HzDialogResource
         ],
         template: template
     }

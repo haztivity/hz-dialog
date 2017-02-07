@@ -67,6 +67,11 @@
       "json": "github:systemjs/plugin-json@^0.2.3",
       "text": "github:systemjs/plugin-text@^0.0.9",
       "typescript": "npm:typescript@^2.1.5"
+    },
+    "overrides": {
+      "npm:jquery-ui@1.12.1": {
+        "format": "amd"
+      }
     }
   }
 }
