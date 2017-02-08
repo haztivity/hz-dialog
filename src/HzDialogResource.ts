@@ -75,8 +75,9 @@ export class HzDialogResource extends ResourceController {
         this._triggers= triggers;
     }
     protected _markAsCompleted(){
-        super._markAsCompleted();
+        this._triggers.removeClass(HzDialogResource.CLASS_UNCOMPLETED);
         this._triggers.addClass(HzDialogResource.CLASS_COMPLETED);
+        super._markAsCompleted();
     }
     protected _onEventTriggered(e){
         let instance:HzDialogResource = e.data.instance;

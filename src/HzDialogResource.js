@@ -70,8 +70,9 @@ System.register(["@haztivity/core/index", "jquery-ui/ui/widgets/dialog"], functi
                     this._triggers = triggers;
                 };
                 HzDialogResource.prototype._markAsCompleted = function () {
-                    _super.prototype._markAsCompleted.call(this);
+                    this._triggers.removeClass(HzDialogResource_1.CLASS_UNCOMPLETED);
                     this._triggers.addClass(HzDialogResource_1.CLASS_COMPLETED);
+                    _super.prototype._markAsCompleted.call(this);
                 };
                 HzDialogResource.prototype._onEventTriggered = function (e) {
                     var instance = e.data.instance;
