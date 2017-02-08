@@ -2,7 +2,7 @@
  * @license
  * Copyright Davinchi. All Rights Reserved.
  */
-import {$, EventEmitterFactory, Resource, ResourceController,DataOptions} from "@haztivity/core/index";
+import {$, EventEmitterFactory, Resource, ResourceController,DataOptions,ResourceSequence} from "@haztivity/core/index";
 import * as dialog from "jquery-ui/ui/widgets/dialog";
 dialog;
 interface IOptions {
@@ -43,17 +43,32 @@ export class HzDialogResource extends ResourceController {
         this._namespace = HzDialogResource.NAMESPACE + this._id;
         this._options = options;
         this._options.on = this._options.on || "click";
+        this._findTriggers();
         let dialogOptions = this._DataOptions.getDataOptions(this._$element,"dialog");
         this._options.dialog = this._$.extend(true,HzDialogResource._DEFAULT_DIALOG_OPTIONS,dialogOptions);
         this._options.dialog.dialogClass = this._options.dialog.dialogClass ? this._options.dialog.dialogClass+" "+HzDialogResource.CLASS_DIALOG : HzDialogResource.CLASS_DIALOG;
         this._$element.dialog(this._options.dialog);
         this._dialog = this._$element.data("uiDialog");
         this._assignEvents();
-        this._findTriggers();
     }
     protected _assignEvents(){
         this._$element.off("."+HzDialogResource.NAMESPACE);
         this._$element.on( "dialogopen", {instance:this}, this._onDialogOpen );
+        this._eventEmitter.on(ResourceSequence.ON_RESOURCE_STATE_CHANGE,{instance:this},this._onSequenceStateChange);
+    }
+    protected _onSequenceStateChange(e,resource,state){
+        resource._triggers.removeClass(`${ResourceSequence.CLASS_RUNNING} ${ResourceSequence.CLASS_COMPLETED} ${ResourceSequence.CLASS_WAITING}`);
+        switch(state){
+            case ResourceSequence.STATES.completed:
+                resource._triggers.addClass(ResourceSequence.CLASS_COMPLETED);
+                break;
+            case ResourceSequence.STATES.running:
+                resource._triggers.addClass(ResourceSequence.CLASS_RUNNING);
+                break;
+            case ResourceSequence.STATES.waiting:
+                resource._triggers.addClass(ResourceSequence.CLASS_WAITING);
+                break;
+        }
     }
     protected _onDialogOpen(e){
         let instance = e.data.instance;
@@ -73,6 +88,21 @@ export class HzDialogResource extends ResourceController {
         }
         triggers.on(`${this._options.on}.${this._namespace}`, {instance: this}, this._onEventTriggered);
         this._triggers= triggers;
+    }
+    public disable(){
+        debugger;
+        if(super.disable()){
+            this._$element.dialog("option","disabled",true);
+            this._triggers.attr("disabled","disabled");
+            this._triggers.addClass(ResourceController.CLASS_DISABLED);
+        }
+    }
+    public enable(){
+        if(super.enable()){
+            this._$element.dialog("option","disabled",false);
+            this._triggers.removeAttr("disabled");
+            this._triggers.removeClass(ResourceController.CLASS_DISABLED);
+        }
     }
     protected _markAsCompleted(){
         this._triggers.removeClass(HzDialogResource.CLASS_UNCOMPLETED);

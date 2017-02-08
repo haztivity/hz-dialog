@@ -25,6 +25,8 @@ export declare class HzDialogResource extends ResourceController {
     protected _assignEvents(): void;
     protected _onDialogOpen(e: any): void;
     protected _findTriggers(): void;
+    disable(): void;
+    enable(): void;
     protected _markAsCompleted(): void;
     protected _onEventTriggered(e: any): void;
     getInstance(): any;

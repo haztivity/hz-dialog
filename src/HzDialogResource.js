@@ -37,17 +37,32 @@ System.register(["@haztivity/core/index", "jquery-ui/ui/widgets/dialog"], functi
                     this._namespace = HzDialogResource_1.NAMESPACE + this._id;
                     this._options = options;
                     this._options.on = this._options.on || "click";
+                    this._findTriggers();
                     var dialogOptions = this._DataOptions.getDataOptions(this._$element, "dialog");
                     this._options.dialog = this._$.extend(true, HzDialogResource_1._DEFAULT_DIALOG_OPTIONS, dialogOptions);
                     this._options.dialog.dialogClass = this._options.dialog.dialogClass ? this._options.dialog.dialogClass + " " + HzDialogResource_1.CLASS_DIALOG : HzDialogResource_1.CLASS_DIALOG;
                     this._$element.dialog(this._options.dialog);
                     this._dialog = this._$element.data("uiDialog");
                     this._assignEvents();
-                    this._findTriggers();
                 };
                 HzDialogResource.prototype._assignEvents = function () {
                     this._$element.off("." + HzDialogResource_1.NAMESPACE);
                     this._$element.on("dialogopen", { instance: this }, this._onDialogOpen);
+                    this._eventEmitter.on(index_1.ResourceSequence.ON_RESOURCE_STATE_CHANGE, { instance: this }, this._onSequenceStateChange);
+                };
+                HzDialogResource.prototype._onSequenceStateChange = function (e, resource, state) {
+                    resource._triggers.removeClass(index_1.ResourceSequence.CLASS_RUNNING + " " + index_1.ResourceSequence.CLASS_COMPLETED + " " + index_1.ResourceSequence.CLASS_WAITING);
+                    switch (state) {
+                        case index_1.ResourceSequence.STATES.completed:
+                            resource._triggers.addClass(index_1.ResourceSequence.CLASS_COMPLETED);
+                            break;
+                        case index_1.ResourceSequence.STATES.running:
+                            resource._triggers.addClass(index_1.ResourceSequence.CLASS_RUNNING);
+                            break;
+                        case index_1.ResourceSequence.STATES.waiting:
+                            resource._triggers.addClass(index_1.ResourceSequence.CLASS_WAITING);
+                            break;
+                    }
                 };
                 HzDialogResource.prototype._onDialogOpen = function (e) {
                     var instance = e.data.instance;
@@ -68,6 +83,21 @@ System.register(["@haztivity/core/index", "jquery-ui/ui/widgets/dialog"], functi
                     }
                     triggers.on(this._options.on + "." + this._namespace, { instance: this }, this._onEventTriggered);
                     this._triggers = triggers;
+                };
+                HzDialogResource.prototype.disable = function () {
+                    debugger;
+                    if (_super.prototype.disable.call(this)) {
+                        this._$element.dialog("option", "disabled", true);
+                        this._triggers.attr("disabled", "disabled");
+                        this._triggers.addClass(index_1.ResourceController.CLASS_DISABLED);
+                    }
+                };
+                HzDialogResource.prototype.enable = function () {
+                    if (_super.prototype.enable.call(this)) {
+                        this._$element.dialog("option", "disabled", false);
+                        this._triggers.removeAttr("disabled");
+                        this._triggers.removeClass(index_1.ResourceController.CLASS_DISABLED);
+                    }
                 };
                 HzDialogResource.prototype._markAsCompleted = function () {
                     this._triggers.removeClass(HzDialogResource_1.CLASS_UNCOMPLETED);
