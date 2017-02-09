@@ -21,6 +21,7 @@ interface IOptions {
 )
 export class HzDialogResource extends ResourceController {
     public static readonly NAMESPACE = "hzDialog";
+    public static readonly ATTR_RELATED_DIALOG = "data-hz-dialog";
     public static readonly _DEFAULT_DIALOG_OPTIONS = {
         autoOpen:false,
         draggable:false,
@@ -39,7 +40,8 @@ export class HzDialogResource extends ResourceController {
     }
     public init(options: any, config?: any): any {
         this._config = config;
-        this._id = new Date().getTime();
+        this._$element.uniqueId();
+        this._id = this._$element.attr("id");
         this._namespace = HzDialogResource.NAMESPACE + this._id;
         this._options = options;
         this._options.on = this._options.on || "click";
@@ -79,8 +81,10 @@ export class HzDialogResource extends ResourceController {
             this._triggers.off("."+this._namespace);
             this._triggers.removeClass(HzDialogResource.CLASS_UNCOMPLETED);
             this._triggers.removeClass(HzDialogResource.CLASS_COMPLETED);
+            this._triggers.remove(HzDialogResource.ATTR_RELATED_DIALOG);
         }
         let triggers = this._$(this._options.trigger);
+        triggers.attr(HzDialogResource.ATTR_RELATED_DIALOG,this._id);
         if(this.isCompleted()){
             triggers.addClass(HzDialogResource.CLASS_COMPLETED);
         }else{

@@ -33,7 +33,8 @@ System.register(["@haztivity/core/index", "jquery-ui/ui/widgets/dialog"], functi
                 }
                 HzDialogResource.prototype.init = function (options, config) {
                     this._config = config;
-                    this._id = new Date().getTime();
+                    this._$element.uniqueId();
+                    this._id = this._$element.attr("id");
                     this._namespace = HzDialogResource_1.NAMESPACE + this._id;
                     this._options = options;
                     this._options.on = this._options.on || "click";
@@ -73,8 +74,10 @@ System.register(["@haztivity/core/index", "jquery-ui/ui/widgets/dialog"], functi
                         this._triggers.off("." + this._namespace);
                         this._triggers.removeClass(HzDialogResource_1.CLASS_UNCOMPLETED);
                         this._triggers.removeClass(HzDialogResource_1.CLASS_COMPLETED);
+                        this._triggers.remove(HzDialogResource_1.ATTR_RELATED_DIALOG);
                     }
                     var triggers = this._$(this._options.trigger);
+                    triggers.attr(HzDialogResource_1.ATTR_RELATED_DIALOG, this._id);
                     if (this.isCompleted()) {
                         triggers.addClass(HzDialogResource_1.CLASS_COMPLETED);
                     }
@@ -115,6 +118,7 @@ System.register(["@haztivity/core/index", "jquery-ui/ui/widgets/dialog"], functi
                 return HzDialogResource;
             }(index_1.ResourceController));
             HzDialogResource.NAMESPACE = "hzDialog";
+            HzDialogResource.ATTR_RELATED_DIALOG = "data-hz-dialog";
             HzDialogResource._DEFAULT_DIALOG_OPTIONS = {
                 autoOpen: false,
                 draggable: false,
