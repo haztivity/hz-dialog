@@ -85,7 +85,6 @@ System.register(["@haztivity/core/index", "jquery-ui/ui/widgets/dialog"], functi
                     this._triggers = triggers;
                 };
                 HzDialogResource.prototype.disable = function () {
-                    debugger;
                     if (_super.prototype.disable.call(this)) {
                         this._$element.dialog("option", "disabled", true);
                         this._triggers.attr("disabled", "disabled");
@@ -106,7 +105,9 @@ System.register(["@haztivity/core/index", "jquery-ui/ui/widgets/dialog"], functi
                 };
                 HzDialogResource.prototype._onEventTriggered = function (e) {
                     var instance = e.data.instance;
-                    instance._dialog.open();
+                    if (!instance.isDisabled()) {
+                        instance._dialog.open();
+                    }
                 };
                 HzDialogResource.prototype.getInstance = function () {
                     return this._dialog;

@@ -90,7 +90,6 @@ export class HzDialogResource extends ResourceController {
         this._triggers= triggers;
     }
     public disable(){
-        debugger;
         if(super.disable()){
             this._$element.dialog("option","disabled",true);
             this._triggers.attr("disabled","disabled");
@@ -111,7 +110,9 @@ export class HzDialogResource extends ResourceController {
     }
     protected _onEventTriggered(e){
         let instance:HzDialogResource = e.data.instance;
-        instance._dialog.open();
+        if(!instance.isDisabled()) {
+            instance._dialog.open();
+        }
     }
     public getInstance(): any {
         return this._dialog;

@@ -23,6 +23,7 @@ export declare class HzDialogResource extends ResourceController {
     constructor(_$: any, _EventEmitterFactory: any, _DataOptions: any);
     init(options: any, config?: any): any;
     protected _assignEvents(): void;
+    protected _onSequenceStateChange(e: any, resource: any, state: any): void;
     protected _onDialogOpen(e: any): void;
     protected _findTriggers(): void;
     disable(): void;
