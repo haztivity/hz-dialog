@@ -1,21 +1,20 @@
-System.register(["./HzDialogResource"], function (exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
-    function exportStar_1(m) {
-        var exports = {};
-        for (var n in m) {
-            if (n !== "default") exports[n] = m[n];
-        }
-        exports_1(exports);
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
     }
-    return {
-        setters: [
-            function (HzDialogResource_1_1) {
-                exportStar_1(HzDialogResource_1_1);
-            }
-        ],
-        execute: function () {
-        }
-    };
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "./HzDialogResource"], factory);
+    }
+})(function (require, exports) {
+    "use strict";
+    function __export(m) {
+        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+    }
+    /**
+     * @license
+     * Copyright Davinchi. All Rights Reserved.
+     */
+    __export(require("./HzDialogResource"));
 });
 //# sourceMappingURL=HzDialog.js.map

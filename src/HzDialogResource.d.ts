@@ -8,6 +8,7 @@
 import { ResourceController, DataOptions } from "@haztivity/core/index";
 export declare class HzDialogResource extends ResourceController {
     static readonly NAMESPACE: string;
+    static readonly ATTR_RELATED_DIALOG: string;
     static readonly _DEFAULT_DIALOG_OPTIONS: {
         autoOpen: boolean;
         draggable: boolean;

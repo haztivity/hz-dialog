@@ -1,6 +1,6 @@
 {
   "name": "@haztivity/hzdialog",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Recurso de dialog",
   "main": "index.js",
   "module": "index.js",
@@ -58,7 +58,7 @@
       "lib": "src"
     },
     "dependencies": {
-      "@haztivity/core": "bitbucket:davinchi_finsi/core@^0",
+      "@haztivity/core": "bitbucket:davinchi_finsi/core@^0.3.0",
       "jquery": "npm:jquery@^3.1.1",
       "jquery-ui": "npm:jquery-ui@^1.12.1"
     },
