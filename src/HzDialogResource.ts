@@ -118,6 +118,11 @@ export class HzDialogResource extends ResourceController {
             instance._dialog.open();
         }
     }
+    public destroy(){
+        this._dialog.close();
+        this._dialog.destroy();
+        super.destroy();
+    }
     public getInstance(): any {
         return this._dialog;
     }
