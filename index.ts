@@ -1,1 +1,1 @@
-export * from "./src/HzTooltip";
+export * from "./src/HzDialog";
