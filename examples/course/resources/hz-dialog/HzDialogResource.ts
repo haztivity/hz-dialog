@@ -45,10 +45,9 @@ export class HzDialogResource extends ResourceController {
         this._options = options;
         this._options.on = this._options.on || "click";
         this._findTriggers();
-        let dialogOptions = this._DataOptions.getDataOptions(this._$element,"dialog");
-        this._options.dialog = this._$.extend(true,HzDialogResource._DEFAULT_DIALOG_OPTIONS,dialogOptions);
-        this._options.dialog.dialogClass = this._options.dialog.dialogClass ? this._options.dialog.dialogClass+" "+HzDialogResource.CLASS_DIALOG : HzDialogResource.CLASS_DIALOG;
-        this._$element.dialog(this._options.dialog);
+        this._options = this._$.extend(true,HzDialogResource._DEFAULT_DIALOG_OPTIONS,options);
+        this._options.dialogClass = this._options.dialogClass ? this._options.dialogClass+" "+HzDialogResource.CLASS_DIALOG : HzDialogResource.CLASS_DIALOG;
+        this._$element.dialog(this._options);
         this._dialog = this._$element.data("uiDialog");
         this._assignEvents();
     }

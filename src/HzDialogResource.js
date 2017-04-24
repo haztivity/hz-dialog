@@ -37,10 +37,9 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
         this._options = options;
         this._options.on = this._options.on || "click";
         this._findTriggers();
-        var dialogOptions = this._DataOptions.getDataOptions(this._$element, "dialog");
-        this._options.dialog = this._$.extend(true, HzDialogResource_1._DEFAULT_DIALOG_OPTIONS, dialogOptions);
-        this._options.dialog.dialogClass = this._options.dialog.dialogClass ? this._options.dialog.dialogClass + " " + HzDialogResource_1.CLASS_DIALOG : HzDialogResource_1.CLASS_DIALOG;
-        this._$element.dialog(this._options.dialog);
+        this._options = this._$.extend(true, HzDialogResource_1._DEFAULT_DIALOG_OPTIONS, options);
+        this._options.dialogClass = this._options.dialogClass ? this._options.dialogClass + " " + HzDialogResource_1.CLASS_DIALOG : HzDialogResource_1.CLASS_DIALOG;
+        this._$element.dialog(this._options);
         this._dialog = this._$element.data("uiDialog");
         this._assignEvents();
     };

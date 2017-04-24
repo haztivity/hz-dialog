@@ -11,7 +11,8 @@ export let page: PageRegister = PageFactory.createPage(
         resources: [
             HzDialogResource
         ],
-        template: template
+        template: template,
+        autoSequence:false
     }
 );
 page.on(
@@ -22,6 +23,9 @@ page.on(
 page.on(
     PageController.ON_RENDERED, null, (eventObject, $page: JQuery, pageController: PageController) => {
         console.log(`${pageController.options.name} rendered`);
+        $page.find('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
     }
 );
 page.on(

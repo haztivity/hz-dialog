@@ -1,7 +1,68 @@
 
 <div>
-  <button id="trigger">Open</button>
-  <div data-hz-resource="HzDialog" data-opt-hz-dialog-trigger="#trigger">
-    <p>COntent</p>
+  <div class="markdown-wrapper"><h2>Simple use</h2>
+<p>hz-dialog allows to create dialog as resources with all the advatages of an haztivity resource
+hz-dialog uses <a href="https://jqueryui.com/dialog/">jquery ui dialog</a> under the hood.</p>
+<h3>Usage</h3>
+<ol>
+<li>Set data-hz-resource to the dialog container</li>
+<li>Set the option data-opt-hz-dialog-trigger to the element that will open the dialog. Could be any jquery selector</li>
+</ol>
+<pre><code class="language-html">&lt;button id=&quot;trigger1&quot;&gt;Open&lt;/button&gt;
+&lt;div data-hz-resource=&quot;HzDialog&quot; data-opt-hz-dialog-trigger=&quot;#trigger1&quot;&gt;
+    &lt;p&gt;Dialog content&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+
+    <button id="trigger1">Open</button>
+    <div data-hz-resource="HzDialog" data-opt-hz-dialog-trigger="#trigger1">
+      <p>Dialog content</p>
+    </div><h3>Options</h3>
+<p>All the options of jquery ui dialog excepts functions could be specified by attributes using:</p>
+<pre><code class="language-html">    data-opt-hz-dialog-[option]=[value]
+</code></pre>
+<p>If the option have multiple words, use dashes, for example appendTo will be append-to
+Examples:</p>
+<pre><code class="language-html">    &lt;!-- Draggable --&gt;
+    &lt;button id=&quot;draggable&quot;&gt;Open draggable dialog&lt;/button&gt;
+    &lt;div data-hz-resource=&quot;HzDialog&quot;
+         data-opt-hz-dialog-trigger=&quot;#draggable&quot;
+         data-opt-hz-dialog-draggable=&quot;true&quot;&gt;
+      &lt;p&gt;Dialog draggable&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Fixed width --&gt;
+    &lt;button id=&quot;width&quot;&gt;Dialog with fixed width&lt;/button&gt;
+    &lt;div data-hz-resource=&quot;HzDialog&quot;
+         data-opt-hz-dialog-trigger=&quot;#width&quot;
+         data-opt-hz-dialog-width=&quot;600px&quot;&gt;
+      &lt;p&gt;Dialog draggable&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Multiple options --&gt;
+    &lt;button id=&quot;multiple&quot;&gt;Open dialog with multiple options&lt;/button&gt;
+    &lt;div data-hz-resource=&quot;HzDialog&quot;
+         data-opt-hz-dialog-trigger=&quot;#multiple&quot;
+         data-opt-hz-dialog-draggable=&quot;true&quot;
+         data-opt-hz-dialog-resizable=&quot;true&quot;
+         data-opt-hz-dialog-position='{&quot;my&quot;:&quot;center top&quot;,&quot;at&quot;:&quot;center top&quot;,&quot;of&quot;:&quot;body&quot;}'&gt;
+      &lt;p&gt;Dialog draggable&lt;/p&gt;
+    &lt;/div&gt;
+</code></pre>
+
+    <button id="draggable">Open draggable dialog</button>
+    <div data-hz-resource="HzDialog" data-opt-hz-dialog-trigger="#draggable" data-opt-hz-dialog-draggable="true">
+      <p>Dialog draggable</p>
+    </div>
+    <button id="width">Dialog with fixed width</button>
+    <div data-hz-resource="HzDialog" data-opt-hz-dialog-trigger="#width" data-opt-hz-dialog-width="600px">
+      <p>Dialog with fixed width</p>
+    </div>
+    <button id="multiple">Open dialog with multiple options</button>
+    <div data-hz-resource="HzDialog" data-opt-hz-dialog-trigger="#multiple" data-opt-hz-dialog-draggable="true" data-opt-hz-dialog-resizable="true" data-opt-hz-dialog-position="{&quot;my&quot;:&quot;center top&quot;,&quot;at&quot;:&quot;center top&quot;,&quot;of&quot;:&quot;body&quot;}">
+      <p>Dialog resizable</p>
+      <p>Dialog draggable</p>
+      <p>Position to center top of body</p>
+    </div>
   </div>
 </div>
