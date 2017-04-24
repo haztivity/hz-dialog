@@ -3,8 +3,8 @@
  * Copyright Davinchi. All Rights Reserved.
  */
 import {PageFactory, PageRegister, PageController} from "@haztivity/core/index";
-import * as template from "./page.html!text";
-import {HzDialogResource} from "../../../../../src/HzDialogResource";
+import template from "./page.pug";
+import {HzDialogResource} from "../../../resources/hz-dialog/HzDialog";
 export let page: PageRegister = PageFactory.createPage(
     {
         name: "6611",

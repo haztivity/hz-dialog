@@ -4,13 +4,21 @@
  */
 import {ScoFactory, Sco, ISco} from "@haztivity/core/index";
 import {page as page6611} from "./pages/6611/page";
+import template from "./sco.pug";
+import {HzNavbarComponent} from "@haztivity/hz-navbar";
+import "./main.scss";
+import "./markdown.scss";
+import "jquery-ui-dist/jquery-ui.css";
 let sco: ISco = ScoFactory.createSco(
     {
         name: "1221",
+        template:template,
         pages: [
             page6611
         ],
-        components: []
+        components: [
+            HzNavbarComponent
+        ]
     }
 );
 //pageChangeStart

@@ -406,6 +406,120 @@ textarea {
   font: inherit;
   /* 2 */ }
 
+/* _hz-navbar.theme-default */
+/* _hz-navbar.structure */
+.hz-navbar {
+  display: flex;
+  padding: 0.75em;
+  align-items: center; }
+  .hz-navbar .hz-navbar__btn {
+    margin: 0;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    background: none;
+    outline: none; }
+  .hz-navbar .hz-navbar__progress {
+    width: 33.3%;
+    display: flex;
+    align-items: center; }
+  .hz-navbar .hz-navbar__progress-mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1; }
+  .hz-navbar .hz-navbar__progress-bar {
+    height: 1.125em;
+    width: 75%;
+    position: relative; }
+  .hz-navbar .hz-navbar__progress-value {
+    height: 100%;
+    transform: scaleX(0);
+    transform-origin: left; }
+  .hz-navbar .hz-navbar__progress-percentage {
+    margin-left: 0.375em; }
+  .hz-navbar .hz-navbar__actions {
+    display: flex;
+    width: 33.3%;
+    justify-content: center; }
+    .hz-navbar .hz-navbar__actions .hz-navbar__btn {
+      margin: 0 0.375em; }
+  .hz-navbar .hz-navbar__pager {
+    display: flex;
+    align-items: center;
+    width: 33.3%;
+    justify-content: flex-end; }
+  .hz-navbar .hz-navbar__pages {
+    padding: 0 0.375em; }
+  .hz-navbar .hz-navbar__total:before {
+    content: "/"; }
+
+.hz-navbar__index-list-dialog {
+  position: absolute; }
+
+/* End _hz-navbar.structure */
+.hz-navbar {
+  background-color: rgba(0, 0, 0, 0.5); }
+  .hz-navbar .hz-navbar__progress-percentage {
+    color: #fff; }
+  .hz-navbar .hz-navbar__btn {
+    transition: all 400ms ease; }
+    .hz-navbar .hz-navbar__btn .hz-navbar__content {
+      position: absolute;
+      top: 0;
+      left: -99999em; }
+    .hz-navbar .hz-navbar__btn:not([disabled]):hover, .hz-navbar .hz-navbar__btn:not([disabled]):focus {
+      transform: scale(1.2); }
+    .hz-navbar .hz-navbar__btn[disabled] {
+      opacity: 0.5;
+      cursor: default; }
+  .hz-navbar .hz-navbar__progress-bar {
+    border: 2px solid none;
+    background-color: #999; }
+  .hz-navbar .hz-navbar__progress-value {
+    transition: all 400ms ease;
+    background-color: #ddd; }
+  .hz-navbar .hz-navbar__actions .hz-navbar__btn {
+    font-size: 1em; }
+    .hz-navbar .hz-navbar__actions .hz-navbar__btn:after {
+      transition: all 400ms ease;
+      font-family: FontAwesome;
+      font-size: 1.75em; }
+  .hz-navbar .hz-navbar__action-home {
+    color: #fff; }
+    .hz-navbar .hz-navbar__action-home:not([disabled]):hover, .hz-navbar .hz-navbar__action-home:not([disabled]):focus {
+      color: #fff; }
+      .hz-navbar .hz-navbar__action-home:not([disabled]):hover:after, .hz-navbar .hz-navbar__action-home:not([disabled]):focus:after {
+        color: #fff; }
+    .hz-navbar .hz-navbar__action-home:after {
+      content: "\f015";
+      color: #fff; }
+  .hz-navbar .hz-navbar__action-index {
+    color: #fff; }
+    .hz-navbar .hz-navbar__action-index:not([disabled]):hover, .hz-navbar .hz-navbar__action-index:not([disabled]):focus {
+      color: #fff; }
+      .hz-navbar .hz-navbar__action-index:not([disabled]):hover:after, .hz-navbar .hz-navbar__action-index:not([disabled]):focus:after {
+        color: #fff; }
+    .hz-navbar .hz-navbar__action-index:after {
+      content: "\f0ca";
+      color: #fff; }
+  .hz-navbar .hz-navbar__pager .hz-navbar__btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #fff; }
+    .hz-navbar .hz-navbar__pager .hz-navbar__btn:after {
+      font-family: FontAwesome;
+      font-size: 1.875em; }
+    .hz-navbar .hz-navbar__pager .hz-navbar__btn.hz-navbar__prev:after {
+      content: "\f053"; }
+    .hz-navbar .hz-navbar__pager .hz-navbar__btn.hz-navbar__next:after {
+      content: "\f054"; }
+  .hz-navbar .hz-navbar__pages {
+    color: #fff; }
+
 /* End common */
 /* Components */
 body {
@@ -413,14 +527,8 @@ body {
   margin: 0 auto;
   padding: 1em; }
 
-.hz-questionnaire .hz-questionnaire__question.hz-questionnaire--incorrect .hz-questionnaire__statement {
-  color: red; }
-.hz-questionnaire .hz-questionnaire__question.hz-questionnaire--correct .hz-questionnaire__statement {
-  color: green; }
-.hz-questionnaire .hz-questionnaire__option.hz-questionnaire--correct {
-  color: green; }
-.hz-questionnaire .hz-questionnaire__option.hz-questionnaire--selected.hz-questionnaire--incorrect {
-  color: red; }
+.tooltip-template {
+  display: none; }
 
 /* End components */
 
