@@ -44,6 +44,7 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
         this._assignEvents();
     };
     HzDialogResource.prototype._assignEvents = function () {
+        this._eventEmitter.globalEmitter.on(index_1.Navigator.ON_CHANGE_PAGE_START + "." + this._namespace, { instance: this }, this._onChangePageStart);
         this._$element.off("." + HzDialogResource_1.NAMESPACE);
         this._$element.on("dialogopen", { instance: this }, this._onDialogOpen);
         this._eventEmitter.on(index_1.ResourceSequence.ON_RESOURCE_STATE_CHANGE, { instance: this }, this._onSequenceStateChange);
@@ -61,6 +62,9 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
                 resource._triggers.addClass(index_1.ResourceSequence.CLASS_WAITING);
                 break;
         }
+    };
+    HzDialogResource.prototype._onChangePageStart = function (e) {
+        e.data.instance._$element.dialog("close");
     };
     HzDialogResource.prototype._onDialogOpen = function (e) {
         var instance = e.data.instance;
@@ -110,6 +114,7 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
         }
     };
     HzDialogResource.prototype.destroy = function () {
+        this._eventEmitter.globalEmitter.off(index_1.Navigator.ON_CHANGE_PAGE_START + "." + this._namespace);
         this._dialog.close();
         this._dialog.destroy();
         _super.prototype.destroy.call(this);

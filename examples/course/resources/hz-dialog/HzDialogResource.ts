@@ -2,7 +2,7 @@
  * @license
  * Copyright Davinchi. All Rights Reserved.
  */
-import {$, EventEmitterFactory, Resource, ResourceController,DataOptions,ResourceSequence} from "@haztivity/core/index";
+import {$, EventEmitterFactory, Resource, ResourceController,DataOptions,ResourceSequence,Navigator} from "@haztivity/core/index";
 import "jquery-ui-dist/jquery-ui.js";
 interface IOptions {
     on?: string;
@@ -52,6 +52,7 @@ export class HzDialogResource extends ResourceController {
         this._assignEvents();
     }
     protected _assignEvents(){
+        this._eventEmitter.on(Navigator.ON_CHANGE_PAGE_START+"."+this._namespace,null,this._onChangePageStart);
         this._$element.off("."+HzDialogResource.NAMESPACE);
         this._$element.on( "dialogopen", {instance:this}, this._onDialogOpen );
         this._eventEmitter.on(ResourceSequence.ON_RESOURCE_STATE_CHANGE,{instance:this},this._onSequenceStateChange);
@@ -69,6 +70,9 @@ export class HzDialogResource extends ResourceController {
                 resource._triggers.addClass(ResourceSequence.CLASS_WAITING);
                 break;
         }
+    }
+    protected _onChangePageStart(){
+        this._$element.dialog("close");
     }
     protected _onDialogOpen(e){
         let instance = e.data.instance;
@@ -117,6 +121,7 @@ export class HzDialogResource extends ResourceController {
         }
     }
     public destroy(){
+        this._eventEmitter.off(Navigator.ON_CHANGE_PAGE_START+"."+this._namespace);
         this._dialog.close();
         this._dialog.destroy();
         super.destroy();
