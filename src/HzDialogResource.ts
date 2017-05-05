@@ -72,7 +72,10 @@ export class HzDialogResource extends ResourceController {
         }
     }
     protected _onChangePageStart(e){
-        e.data.instance._$element.dialog("close");
+        let instance = e.data.instance;
+        if(instance._dialog){
+            instance._dialog.close();
+        }
     }
     protected _onDialogOpen(e){
         let instance = e.data.instance;
@@ -122,8 +125,10 @@ export class HzDialogResource extends ResourceController {
     }
     public destroy(){
         this._eventEmitter.globalEmitter.off(Navigator.ON_CHANGE_PAGE_START+"."+this._namespace);
-        this._dialog.close();
-        this._dialog.destroy();
+        if(this._dialog) {
+            this._dialog.close();
+            this._dialog.destroy();
+        }
         super.destroy();
     }
     public getInstance(): any {
