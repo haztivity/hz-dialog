@@ -1,13 +1,44 @@
 
 <div>
-  <div class="markdown-wrapper"><h2>Simple use</h2>
+  <div class="markdown-wrapper"><h1>hz-dialog</h1>
 <p>hz-dialog allows to create dialog as resources with all the advatages of an haztivity resource
 hz-dialog uses <a href="https://jqueryui.com/dialog/">jquery ui dialog</a> under the hood.</p>
-<h3>Usage</h3>
+<h2>Dependencies</h2>
+<ul>
+<li>JQuery</li>
+<li>JQuery UI dialog</li>
+<li>@haztivity/core</li>
+</ul>
+<h2>Usage</h2>
 <ol>
-<li>Set data-hz-resource to the dialog container</li>
-<li>Set the option data-opt-hz-dialog-trigger to the element that will open the dialog. Could be any jquery selector</li>
+<li>Import @haztivity/hz-dialog</li>
+<li>Add HzDialogResource to the page</li>
+<li>Create a button to open the dialog</li>
+<li>Create the dialog and set <code>data-hz-resource=&quot;HzDialog&quot;</code></li>
+<li>Set to the dialog the attribute <code>data-opt-hz-dialog-trigger=&quot;selectorToButton&quot;</code> where <strong>selectorToButton</strong> is a jquery selector for the button created before</li>
 </ol>
+<h3>Ts</h3>
+<pre><code class="language-typescript">import {PageFactory, Page, PageController, PageRegister} from &quot;@haztivity/core&quot;;
+import template from &quot;./page.pug&quot;;
+import {HzDialogResource} from &quot;@haztivity/hz-dialog&quot;;
+export let page: PageRegister = PageFactory.createPage(
+    {
+        name: &quot;myPage&quot;,
+        resources: [
+            HzDialogResource
+        ],
+        template: template
+    }
+);
+</code></pre>
+<h3>Pug</h3>
+<pre><code class="language-jade">button#trigger1 Open
+div(data-hz-resource=&quot;HzDialog&quot;, data-opt-hz-dialog-trigger=&quot;#trigger1&quot;)
+    p Dialog content
+
+</code></pre>
+<p>or</p>
+<h3>HTML</h3>
 <pre><code class="language-html">&lt;button id=&quot;trigger1&quot;&gt;Open&lt;/button&gt;
 &lt;div data-hz-resource=&quot;HzDialog&quot; data-opt-hz-dialog-trigger=&quot;#trigger1&quot;&gt;
     &lt;p&gt;Dialog content&lt;/p&gt;
@@ -17,12 +48,35 @@ hz-dialog uses <a href="https://jqueryui.com/dialog/">jquery ui dialog</a> under
     <button id="trigger1">Open</button>
     <div data-hz-resource="HzDialog" data-opt-hz-dialog-trigger="#trigger1">
       <p>Dialog content</p>
-    </div><h3>Options</h3>
-<p>All the options of jquery ui dialog excepts functions could be specified by attributes using:</p>
-<pre><code class="language-html">    data-opt-hz-dialog-[option]=[value]
+    </div><h2>Options</h2>
+<p>All the options of jquery ui dialog <strong>except</strong> functions could be specified by attributes using:</p>
+<pre><code class="language-jade">    data-opt-hz-dialog-[option]=[value]
 </code></pre>
-<p>If the option have multiple words, use dashes, for example appendTo will be append-to
-Examples:</p>
+<p>If the option have multiple words, use dashes, for example <code>appendTo</code> have to be provided as <code>append-to</code>
+###Examples:</p>
+<h4>Pug</h4>
+<pre><code class="language-jade">button#draggable Open draggable dialog
+div(data-hz-resource=&quot;HzDialog&quot;
+    data-opt-hz-dialog-trigger=&quot;#draggable&quot;
+    data-opt-hz-dialog-draggable=&quot;true&quot;)
+    p Dialog draggable
+button#width Dialog with fixed width
+div(data-hz-resource=&quot;HzDialog&quot;
+    data-opt-hz-dialog-trigger=&quot;#width&quot;
+    data-opt-hz-dialog-width=&quot;600px&quot;)
+        p Dialog with fixed width
+button#multiple Open dialog with multiple options
+div(data-hz-resource=&quot;HzDialog&quot;
+    data-opt-hz-dialog-trigger=&quot;#multiple&quot;
+    data-opt-hz-dialog-draggable=&quot;true&quot;
+    data-opt-hz-dialog-resizable=&quot;true&quot;,
+    data-opt-hz-dialog-position='{&quot;my&quot;:&quot;center top&quot;,&quot;at&quot;:&quot;center top&quot;,&quot;of&quot;:&quot;body&quot;}')
+        p Dialog resizable
+        p Dialog draggable
+        p Position to center top of body
+</code></pre>
+<p>or</p>
+<h4>Html</h4>
 <pre><code class="language-html">    &lt;!-- Draggable --&gt;
     &lt;button id=&quot;draggable&quot;&gt;Open draggable dialog&lt;/button&gt;
     &lt;div data-hz-resource=&quot;HzDialog&quot;
