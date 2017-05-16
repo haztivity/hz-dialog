@@ -32,30 +32,39 @@ export class HzDialogResource extends ResourceController {
     protected _id;
     protected _namespace;
     protected _triggers:JQuery;
-    protected _dialog;
+    protected _dialogInstance;
     constructor (_$, _EventEmitterFactory, _DataOptions){
         super(_$,_EventEmitterFactory);
         this._DataOptions = _DataOptions;
     }
     public init(options: any, config?: any): any {
         this._config = config;
-        this._$element.uniqueId();
-        this._id = this._$element.attr("id");
         this._namespace = HzDialogResource.NAMESPACE + this._id;
         this._options = options;
         this._options.on = this._options.on || "click";
+        this.refresh();
+    }
+    public refresh(){
+        if(this._dialogInstance){
+            this._dialogInstance.destroy();
+        }
+        this._$element.uniqueId();
+        this._id = this._$element.attr("id");
+        let dialogOptions = this._DataOptions.getDataOptions(this._$element, "dialog");
+        this._options.dialog = this._$.extend(true, HzDialogResource._DEFAULT_DIALOG_OPTIONS, dialogOptions);
+        this._options.dialog.dialogClass = this._options.dialog.dialogClass ? this._options.dialogdialogClass+" "+HzDialogResource.CLASS_DIALOG : HzDialogResource.CLASS_DIALOG;
+        this._$element.dialog(this._options.dialog);
+        this._dialogInstance = this._$element.data("uiDialog");
         this._findTriggers();
-        this._options = this._$.extend(true,HzDialogResource._DEFAULT_DIALOG_OPTIONS,options);
-        this._options.dialogClass = this._options.dialogClass ? this._options.dialogClass+" "+HzDialogResource.CLASS_DIALOG : HzDialogResource.CLASS_DIALOG;
-        this._$element.dialog(this._options);
-        this._dialog = this._$element.data("uiDialog");
         this._assignEvents();
     }
     protected _assignEvents(){
+        this._eventEmitter.globalEmitter.off("."+this._namespace);
+        this._$element.off("."+this._namespace);
+        this._eventEmitter.off("."+this._namespace);
         this._eventEmitter.globalEmitter.on(Navigator.ON_CHANGE_PAGE_START+"."+this._namespace,{instance:this},this._onChangePageStart);
-        this._$element.off("."+HzDialogResource.NAMESPACE);
-        this._$element.on( "dialogopen", {instance:this}, this._onDialogOpen );
-        this._eventEmitter.on(ResourceSequence.ON_RESOURCE_STATE_CHANGE,{instance:this},this._onSequenceStateChange);
+        this._$element.on( "dialogopen"+"."+this._namespace, {instance:this}, this._onDialogOpen );
+        this._eventEmitter.on(ResourceSequence.ON_RESOURCE_STATE_CHANGE+"."+this._namespace,{instance:this},this._onSequenceStateChange);
     }
     protected _onSequenceStateChange(e,resource,state){
         resource._triggers.removeClass(`${ResourceSequence.CLASS_RUNNING} ${ResourceSequence.CLASS_COMPLETED} ${ResourceSequence.CLASS_WAITING}`);
@@ -120,18 +129,18 @@ export class HzDialogResource extends ResourceController {
     protected _onEventTriggered(e){
         let instance:HzDialogResource = e.data.instance;
         if(!instance.isDisabled()) {
-            instance._dialog.open();
+            instance._dialogInstance.open();
         }
     }
     public destroy(){
         this._eventEmitter.globalEmitter.off(Navigator.ON_CHANGE_PAGE_START+"."+this._namespace);
-        if(this._dialog) {
-            this._dialog.close();
-            this._dialog.destroy();
+        if(this._dialogInstance) {
+            this._dialogInstance.close();
+            this._dialogInstance.destroy();
         }
         super.destroy();
     }
     public getInstance(): any {
-        return this._dialog;
+        return this._dialogInstance;
     }
 }

@@ -8,6 +8,7 @@ import template from "./sco.pug";
 import {HzNavbarComponent} from "@haztivity/hz-navbar";
 import "./main.scss";
 import "./markdown.scss";
+import "./prism-github.scss";
 import "jquery-ui-dist/jquery-ui.css";
 let sco: ISco = ScoFactory.createSco(
     {

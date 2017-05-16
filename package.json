@@ -1,11 +1,11 @@
 {
   "name": "@haztivity/hz-dialog",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Recurso de dialogo",
   "main": "index.js",
   "module": "index.js",
   "scripts": {
-    "build":"tsc -p src",
+    "build": "tsc -p src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@haztivity/core": "^0.6.2",
-    "jquery-ui-dist": "^1.12.1"
+    "jquery-ui-dist": "^1.12.1",
+    "prismjs": "^1.6.0"
   }
 }
