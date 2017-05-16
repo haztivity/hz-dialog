@@ -51,7 +51,7 @@ export class HzDialogResource extends ResourceController {
         this._$element.uniqueId();
         this._id = this._$element.attr("id");
         let dialogOptions = this._DataOptions.getDataOptions(this._$element, "dialog");
-        this._options.dialog = this._$.extend(true, HzDialogResource._DEFAULT_DIALOG_OPTIONS, dialogOptions);
+        this._options.dialog = this._$.extend(true,{}, HzDialogResource._DEFAULT_DIALOG_OPTIONS, dialogOptions);
         this._options.dialog.dialogClass = this._options.dialog.dialogClass ? this._options.dialogdialogClass+" "+HzDialogResource.CLASS_DIALOG : HzDialogResource.CLASS_DIALOG;
         this._$element.dialog(this._options.dialog);
         this._dialogInstance = this._$element.data("uiDialog");

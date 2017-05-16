@@ -43,7 +43,7 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
         this._$element.uniqueId();
         this._id = this._$element.attr("id");
         var dialogOptions = this._DataOptions.getDataOptions(this._$element, "dialog");
-        this._options.dialog = this._$.extend(true, HzDialogResource_1._DEFAULT_DIALOG_OPTIONS, dialogOptions);
+        this._options.dialog = this._$.extend(true, {}, HzDialogResource_1._DEFAULT_DIALOG_OPTIONS, dialogOptions);
         this._options.dialog.dialogClass = this._options.dialog.dialogClass ? this._options.dialogdialogClass + " " + HzDialogResource_1.CLASS_DIALOG : HzDialogResource_1.CLASS_DIALOG;
         this._$element.dialog(this._options.dialog);
         this._dialogInstance = this._$element.data("uiDialog");
