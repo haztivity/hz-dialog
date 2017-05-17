@@ -1,5 +1,5 @@
 # hz-dialog
-hz-dialog is a haztivity resource to create dialogs.\
+hz-dialog is an haztivity resource to create dialogs.\
 hz-dialog uses [jquery ui dialog](https://jqueryui.com/dialog/) under the hood.
 ## Install
 ### NPM
