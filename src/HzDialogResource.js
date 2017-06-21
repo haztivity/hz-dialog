@@ -32,7 +32,7 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
     HzDialogResource.prototype.init = function (options, config) {
         this._config = config;
         this._namespace = HzDialogResource_1.NAMESPACE + this._id;
-        this._options = options;
+        this._options = this._$.extend(true, {}, HzDialogResource_1.DEFAULTS, options);
         this._options.on = this._options.on || "click";
         this.refresh();
     };
@@ -44,7 +44,8 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
         this._id = this._$element.attr("id");
         var dialogOptions = this._DataOptions.getDataOptions(this._$element, "dialog");
         this._options.dialog = this._$.extend(true, {}, HzDialogResource_1._DEFAULT_DIALOG_OPTIONS, dialogOptions);
-        this._options.dialog.dialogClass = this._options.dialog.dialogClass ? this._options.dialogdialogClass + " " + HzDialogResource_1.CLASS_DIALOG : HzDialogResource_1.CLASS_DIALOG;
+        this._options.dialog.dialogClass = this._options.dialog.dialogClass ? this._options.dialog.dialogClass + " " + HzDialogResource_1.CLASS_DIALOG : HzDialogResource_1.CLASS_DIALOG;
+        this._options.dialog.classes = this._options.dialog.classes ? this._options.dialog.classes + " " + HzDialogResource_1.CLASS_DIALOG : HzDialogResource_1.CLASS_DIALOG;
         this._$element.dialog(this._options.dialog);
         this._dialogInstance = this._$element.data("uiDialog");
         this._findTriggers();
@@ -56,6 +57,7 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
         this._eventEmitter.off("." + this._namespace);
         this._eventEmitter.globalEmitter.on(index_1.Navigator.ON_CHANGE_PAGE_START + "." + this._namespace, { instance: this }, this._onChangePageStart);
         this._$element.on("dialogopen" + "." + this._namespace, { instance: this }, this._onDialogOpen);
+        this._$element.on("dialogclose" + "." + this._namespace, { instance: this }, this._onDialogClose);
         this._eventEmitter.on(index_1.ResourceSequence.ON_RESOURCE_STATE_CHANGE + "." + this._namespace, { instance: this }, this._onSequenceStateChange);
     };
     HzDialogResource.prototype._onSequenceStateChange = function (e, resource, state) {
@@ -80,7 +82,15 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
     };
     HzDialogResource.prototype._onDialogOpen = function (e) {
         var instance = e.data.instance;
-        instance._markAsCompleted();
+        if (instance.options.completeOnOpen === true) {
+            instance._markAsCompleted();
+        }
+    };
+    HzDialogResource.prototype._onDialogClose = function (e) {
+        var instance = e.data.instance;
+        if (instance.options.completeOnOpen != true) {
+            instance._markAsCompleted();
+        }
     };
     HzDialogResource.prototype._findTriggers = function () {
         if (this._triggers) {
@@ -140,6 +150,9 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
 }(index_1.ResourceController));
 HzDialogResource.NAMESPACE = "hzDialog";
 HzDialogResource.ATTR_RELATED_DIALOG = "data-hz-dialog";
+HzDialogResource.DEFAULTS = {
+    completeOnOpen: false
+};
 HzDialogResource._DEFAULT_DIALOG_OPTIONS = {
     autoOpen: false,
     draggable: false,
