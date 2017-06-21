@@ -82,13 +82,13 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
     };
     HzDialogResource.prototype._onDialogOpen = function (e) {
         var instance = e.data.instance;
-        if (instance.options.completeOnOpen === true) {
+        if (instance._options.completeOnOpen === true) {
             instance._markAsCompleted();
         }
     };
     HzDialogResource.prototype._onDialogClose = function (e) {
         var instance = e.data.instance;
-        if (instance.options.completeOnOpen != true) {
+        if (instance._options.completeOnOpen != true) {
             instance._markAsCompleted();
         }
     };

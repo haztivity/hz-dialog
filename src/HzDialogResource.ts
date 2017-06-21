@@ -36,6 +36,8 @@ export class HzDialogResource extends ResourceController {
     protected _namespace;
     protected _triggers:JQuery;
     protected _dialogInstance;
+    protected _options;
+    protected _config;
     constructor (_$, _EventEmitterFactory, _DataOptions){
         super(_$,_EventEmitterFactory);
         this._DataOptions = _DataOptions;
@@ -93,13 +95,13 @@ export class HzDialogResource extends ResourceController {
     }
     protected _onDialogOpen(e){
         let instance = e.data.instance;
-        if(instance.options.completeOnOpen === true) {
+        if(instance._options.completeOnOpen === true) {
             instance._markAsCompleted();
         }
     }
     protected _onDialogClose(e){
         let instance = e.data.instance;
-        if(instance.options.completeOnOpen != true) {
+        if(instance._options.completeOnOpen != true) {
             instance._markAsCompleted();
         }
     }
