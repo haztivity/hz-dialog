@@ -1,6 +1,6 @@
 {
   "name": "@haztivity/hz-dialog",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "Recurso de dialogo",
   "main": "index.js",
   "module": "index.js",
