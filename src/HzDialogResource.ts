@@ -31,6 +31,7 @@ export class HzDialogResource extends ResourceController {
     };
     protected static readonly CLASS_TRIGGER = "hz-dialog__trigger";
     protected static readonly CLASS_DIALOG = "hz-dialog";
+    protected static readonly CLASS_OPEN = "hz-dialog--open";
     protected _DataOptions:DataOptions;
     protected _id;
     protected _namespace;
@@ -95,12 +96,14 @@ export class HzDialogResource extends ResourceController {
     }
     protected _onDialogOpen(e){
         let instance = e.data.instance;
+        instance._triggers.addClass(HzDialogResource.CLASS_OPEN);
         if(instance._options.completeOnOpen === true) {
             instance._markAsCompleted();
         }
     }
     protected _onDialogClose(e){
         let instance = e.data.instance;
+        instance._triggers.removeClass(HzDialogResource.CLASS_OPEN);
         if(instance._options.completeOnOpen != true) {
             instance._markAsCompleted();
         }
