@@ -35,7 +35,7 @@
     "prismjs": "^1.6.0"
   },
   "dependencies": {
-    "@haztivity/core": "^0.6.2",
+    "@haztivity/core": "^0.6.x",
     "jquery-ui-dist": "^1.12.1"
   }
 }
