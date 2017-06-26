@@ -1,6 +1,6 @@
 {
   "name": "@haztivity/hz-dialog",
-  "version": "0.6.8",
+  "version": "0.6.9",
   "description": "Dialog resource",
   "main": "dist/HzDialog.js",
   "module": "dist/HzDialog.js",
