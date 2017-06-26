@@ -20,7 +20,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @license
  * Copyright Davinchi. All Rights Reserved.
  */
-var index_1 = require("@haztivity/core/index");
+var core_1 = require("@haztivity/core");
 require("jquery-ui-dist/jquery-ui.js");
 var HzDialogResource = HzDialogResource_1 = (function (_super) {
     __extends(HzDialogResource, _super);
@@ -55,22 +55,22 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
         this._eventEmitter.globalEmitter.off("." + this._namespace);
         this._$element.off("." + this._namespace);
         this._eventEmitter.off("." + this._namespace);
-        this._eventEmitter.globalEmitter.on(index_1.Navigator.ON_CHANGE_PAGE_START + "." + this._namespace, { instance: this }, this._onChangePageStart);
+        this._eventEmitter.globalEmitter.on(core_1.Navigator.ON_CHANGE_PAGE_START + "." + this._namespace, { instance: this }, this._onChangePageStart);
         this._$element.on("dialogopen" + "." + this._namespace, { instance: this }, this._onDialogOpen);
         this._$element.on("dialogclose" + "." + this._namespace, { instance: this }, this._onDialogClose);
-        this._eventEmitter.on(index_1.ResourceSequence.ON_RESOURCE_STATE_CHANGE + "." + this._namespace, { instance: this }, this._onSequenceStateChange);
+        this._eventEmitter.on(core_1.ResourceSequence.ON_RESOURCE_STATE_CHANGE + "." + this._namespace, { instance: this }, this._onSequenceStateChange);
     };
     HzDialogResource.prototype._onSequenceStateChange = function (e, resource, state) {
-        resource._triggers.removeClass(index_1.ResourceSequence.CLASS_RUNNING + " " + index_1.ResourceSequence.CLASS_COMPLETED + " " + index_1.ResourceSequence.CLASS_WAITING);
+        resource._triggers.removeClass(core_1.ResourceSequence.CLASS_RUNNING + " " + core_1.ResourceSequence.CLASS_COMPLETED + " " + core_1.ResourceSequence.CLASS_WAITING);
         switch (state) {
-            case index_1.ResourceSequence.STATES.completed:
-                resource._triggers.addClass(index_1.ResourceSequence.CLASS_COMPLETED);
+            case core_1.ResourceSequence.STATES.completed:
+                resource._triggers.addClass(core_1.ResourceSequence.CLASS_COMPLETED);
                 break;
-            case index_1.ResourceSequence.STATES.running:
-                resource._triggers.addClass(index_1.ResourceSequence.CLASS_RUNNING);
+            case core_1.ResourceSequence.STATES.running:
+                resource._triggers.addClass(core_1.ResourceSequence.CLASS_RUNNING);
                 break;
-            case index_1.ResourceSequence.STATES.waiting:
-                resource._triggers.addClass(index_1.ResourceSequence.CLASS_WAITING);
+            case core_1.ResourceSequence.STATES.waiting:
+                resource._triggers.addClass(core_1.ResourceSequence.CLASS_WAITING);
                 break;
         }
     };
@@ -82,12 +82,14 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
     };
     HzDialogResource.prototype._onDialogOpen = function (e) {
         var instance = e.data.instance;
+        instance._triggers.addClass(HzDialogResource_1.CLASS_OPEN);
         if (instance._options.completeOnOpen === true) {
             instance._markAsCompleted();
         }
     };
     HzDialogResource.prototype._onDialogClose = function (e) {
         var instance = e.data.instance;
+        instance._triggers.removeClass(HzDialogResource_1.CLASS_OPEN);
         if (instance._options.completeOnOpen != true) {
             instance._markAsCompleted();
         }
@@ -114,14 +116,14 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
         if (_super.prototype.disable.call(this)) {
             this._$element.dialog("option", "disabled", true);
             this._triggers.attr("disabled", "disabled");
-            this._triggers.addClass(index_1.ResourceController.CLASS_DISABLED);
+            this._triggers.addClass(core_1.ResourceController.CLASS_DISABLED);
         }
     };
     HzDialogResource.prototype.enable = function () {
         if (_super.prototype.enable.call(this)) {
             this._$element.dialog("option", "disabled", false);
             this._triggers.removeAttr("disabled");
-            this._triggers.removeClass(index_1.ResourceController.CLASS_DISABLED);
+            this._triggers.removeClass(core_1.ResourceController.CLASS_DISABLED);
         }
     };
     HzDialogResource.prototype._markAsCompleted = function () {
@@ -136,7 +138,7 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
         }
     };
     HzDialogResource.prototype.destroy = function () {
-        this._eventEmitter.globalEmitter.off(index_1.Navigator.ON_CHANGE_PAGE_START + "." + this._namespace);
+        this._eventEmitter.globalEmitter.off(core_1.Navigator.ON_CHANGE_PAGE_START + "." + this._namespace);
         if (this._dialogInstance) {
             this._dialogInstance.close();
             this._dialogInstance.destroy();
@@ -147,7 +149,7 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
         return this._dialogInstance;
     };
     return HzDialogResource;
-}(index_1.ResourceController));
+}(core_1.ResourceController));
 HzDialogResource.NAMESPACE = "hzDialog";
 HzDialogResource.ATTR_RELATED_DIALOG = "data-hz-dialog";
 HzDialogResource.DEFAULTS = {
@@ -160,13 +162,14 @@ HzDialogResource._DEFAULT_DIALOG_OPTIONS = {
 };
 HzDialogResource.CLASS_TRIGGER = "hz-dialog__trigger";
 HzDialogResource.CLASS_DIALOG = "hz-dialog";
+HzDialogResource.CLASS_OPEN = "hz-dialog--open";
 HzDialogResource = HzDialogResource_1 = __decorate([
-    index_1.Resource({
+    core_1.Resource({
         name: "HzDialog",
         dependencies: [
-            index_1.$,
-            index_1.EventEmitterFactory,
-            index_1.DataOptions
+            core_1.$,
+            core_1.EventEmitterFactory,
+            core_1.DataOptions
         ]
     })
 ], HzDialogResource);
