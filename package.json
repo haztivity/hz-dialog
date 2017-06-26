@@ -18,8 +18,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "types": "index.ts",
-  "typings": "index.ts",
+  "types": "src/HzDialog.ts",
+  "typings": "src/HzDialog.ts",
   "author": "Davinchi",
   "license": "MIT",
   "homepage": "https://github.com/haztivity/hz-dialog/",
