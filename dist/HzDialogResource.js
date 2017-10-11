@@ -22,13 +22,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var core_1 = require("@haztivity/core");
 require("jquery-ui-dist/jquery-ui.js");
-var HzDialogResource = HzDialogResource_1 = (function (_super) {
+var HzDialogResource = /** @class */ (function (_super) {
     __extends(HzDialogResource, _super);
     function HzDialogResource(_$, _EventEmitterFactory, _DataOptions) {
         var _this = _super.call(this, _$, _EventEmitterFactory) || this;
         _this._DataOptions = _DataOptions;
         return _this;
     }
+    HzDialogResource_1 = HzDialogResource;
     HzDialogResource.prototype.init = function (options, config) {
         this._config = config;
         this._namespace = HzDialogResource_1.NAMESPACE + this._id;
@@ -124,6 +125,9 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
             this._$element.dialog("option", "disabled", false);
             this._triggers.removeAttr("disabled");
             this._triggers.removeClass(core_1.ResourceController.CLASS_DISABLED);
+            if (this._triggers.length == 0) {
+                this._$element.dialog("open");
+            }
         }
     };
     HzDialogResource.prototype._markAsCompleted = function () {
@@ -148,31 +152,31 @@ var HzDialogResource = HzDialogResource_1 = (function (_super) {
     HzDialogResource.prototype.getInstance = function () {
         return this._dialogInstance;
     };
+    HzDialogResource.NAMESPACE = "hzDialog";
+    HzDialogResource.ATTR_RELATED_DIALOG = "data-hz-dialog";
+    HzDialogResource.DEFAULTS = {
+        completeOnOpen: false
+    };
+    HzDialogResource._DEFAULT_DIALOG_OPTIONS = {
+        autoOpen: false,
+        draggable: false,
+        resizable: false
+    };
+    HzDialogResource.CLASS_TRIGGER = "hz-dialog__trigger";
+    HzDialogResource.CLASS_DIALOG = "hz-dialog";
+    HzDialogResource.CLASS_OPEN = "hz-dialog--open";
+    HzDialogResource = HzDialogResource_1 = __decorate([
+        core_1.Resource({
+            name: "HzDialog",
+            dependencies: [
+                core_1.$,
+                core_1.EventEmitterFactory,
+                core_1.DataOptions
+            ]
+        })
+    ], HzDialogResource);
     return HzDialogResource;
+    var HzDialogResource_1;
 }(core_1.ResourceController));
-HzDialogResource.NAMESPACE = "hzDialog";
-HzDialogResource.ATTR_RELATED_DIALOG = "data-hz-dialog";
-HzDialogResource.DEFAULTS = {
-    completeOnOpen: false
-};
-HzDialogResource._DEFAULT_DIALOG_OPTIONS = {
-    autoOpen: false,
-    draggable: false,
-    resizable: false
-};
-HzDialogResource.CLASS_TRIGGER = "hz-dialog__trigger";
-HzDialogResource.CLASS_DIALOG = "hz-dialog";
-HzDialogResource.CLASS_OPEN = "hz-dialog--open";
-HzDialogResource = HzDialogResource_1 = __decorate([
-    core_1.Resource({
-        name: "HzDialog",
-        dependencies: [
-            core_1.$,
-            core_1.EventEmitterFactory,
-            core_1.DataOptions
-        ]
-    })
-], HzDialogResource);
 exports.HzDialogResource = HzDialogResource;
-var HzDialogResource_1;
 //# sourceMappingURL=HzDialogResource.js.map

@@ -137,6 +137,9 @@ export class HzDialogResource extends ResourceController {
             this._$element.dialog("option","disabled",false);
             this._triggers.removeAttr("disabled");
             this._triggers.removeClass(ResourceController.CLASS_DISABLED);
+            if(this._triggers.length == 0){
+                this._$element.dialog("open");
+            }
         }
     }
     protected _markAsCompleted(){
