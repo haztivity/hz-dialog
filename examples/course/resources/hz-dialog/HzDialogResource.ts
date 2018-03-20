@@ -2,7 +2,7 @@
  * @license
  * Copyright Davinchi. All Rights Reserved.
  */
-import {$, EventEmitterFactory, Resource, ResourceController,DataOptions,ResourceSequence,Navigator} from "@haztivity/core/index";
+import {$, EventEmitterFactory, Resource, ResourceController,DataOptions,ResourceSequence,Navigator} from "@haztivity/core";
 import "jquery-ui-dist/jquery-ui.js";
 interface IOptions {
     on?: string;

@@ -1,6 +1,6 @@
 div
     div.markdown-wrapper
-        :markdown-it(linkify)
+        :markdown-it
             # hz-dialog
             hz-dialog allows to create dialog as resources with all the advatages of an haztivity resource
             hz-dialog uses [jquery ui dialog](https://jqueryui.com/dialog/) under the hood.
@@ -30,7 +30,7 @@ div
             );
             ```
             ### Pug
-            ```jade
+            ```pug
             button#trigger1 Open
             div(data-hz-resource="HzDialog", data-opt-hz-dialog-trigger="#trigger1")
                 p Dialog content
@@ -48,16 +48,16 @@ div
         div(data-hz-resource="HzDialog", data-opt-hz-dialog-trigger="#trigger1")
             p Dialog content
 
-        :markdown-it(linkify)
+        :markdown-it
             ## Options
             All the options of jquery ui dialog **except** functions could be specified by attributes using:
-            ```jade
+            ```pug
                 data-opt-dialog-[option]=[value]
             ```
             If the option have multiple words, use dashes, for example ```appendTo``` have to be provided as ```append-to```
             ### Examples:
             #### Pug
-            ```jade
+            ```pug
             // Draggable
             button#draggable Open draggable dialog
             div(data-hz-resource="HzDialog"
